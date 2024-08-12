@@ -1,6 +1,7 @@
 import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import { GiWorld } from "react-icons/gi";
+import './Navbar.css'
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -11,15 +12,27 @@ const Navbar = () => {
 
     const links = [
         { to: '/', label: 'Home' },
-        { to: '/menu', label: 'Menu' },
-        { to: '/mobileApp', label: 'Mobile app' },
-        { to: '/myOrders', label: 'My orders' }
+        { to: '/menu', label: 'Tour Packages' },
+        { to: '/mobileApp', label: 'Blogs' },
+        { to: '/about', label: 'About' }
     ];
 
     const renderLinks = () =>
         links.map(({ to, label }) => (
-            <li key={to}>
-                <NavLink to={to} className='md:mx-5 my-5 md:my-0'>{label}</NavLink>
+            <li className="hover:text-[#094067] hover:bg-slate-300" key={to}>
+                <NavLink
+                    to={to}
+                    style={({ isActive }) => ({
+                        color: isActive ? '#094067' : '#545e6f',
+                        background: isActive ? '#E8E8EB' : 'white',
+                        borderRadius: isActive ? '0' : '0.375rem' // Adjust borderRadius here
+                    })}
+                    className={
+                        `text-xl`
+                    }
+                >
+                    {label}
+                </NavLink>
             </li>
         ));
 
@@ -44,13 +57,13 @@ const Navbar = () => {
 
                 <Link to='/' className="text-xl font-serif flex justify-center items-center">
                     <GiWorld className="text-4xl" />
-                    <span className="text-3xl text-color">
-                        <span>World</span>explore
+                    <span>
+                        <span className="text-3xl text-color">World</span>explore
                     </span>
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal px-1 ">
                     {renderLinks()}
                 </ul>
             </div>
