@@ -11,7 +11,7 @@ const AutoplaySlider = withAutoplay(AwesomeSlider);
 
 const slides = [
     { image: banner1, caption: 'Explore The World Together' },
-    { image: banner2, caption: 'We Believe Your Way is The Highway' },
+    { image: banner2, caption: 'It is Better to Travel Well Than to Arrive' },
     { image: banner3, caption: 'Make your Vacation One of the Best With Us' }
 ];
 

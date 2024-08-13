@@ -37,7 +37,7 @@ const Navbar = () => {
         ));
 
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar border-b-2">
             <div className="navbar-start">
                 {/* For mobile devices */}
                 <div>
