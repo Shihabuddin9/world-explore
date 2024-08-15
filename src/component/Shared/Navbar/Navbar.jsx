@@ -67,6 +67,10 @@ const Navbar = () => {
                     {renderLinks()}
                 </ul>
             </div>
+
+            <div className="navbar-end">
+                <Link to='/login'> <button className="btn btn-outline btn-sm rounded-full hover:bg-[#094067] px-4 transition-colors duration-300 ">Login</button></Link>
+            </div>
         </div>
     );
 };
