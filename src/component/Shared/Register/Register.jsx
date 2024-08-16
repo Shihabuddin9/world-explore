@@ -1,9 +1,13 @@
+import { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { AuthProvider } from "../../Provider/AuthContext/AuthContext";
+import { toast } from "react-toastify";
 
 
 const Register = () => {
+    const { createRegister } = useContext(AuthProvider)
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -12,6 +16,18 @@ const Register = () => {
         const userName = form.username.value
         const email = form.email.value
         const password = form.password.value
+
+        createRegister(email, password)
+            .then((userCredential) => {
+                // Signed up 
+                const user = userCredential.user;
+                toast('Successfully Register')
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            });
 
         console.log(userName, email, password);
         form.reset()
@@ -24,7 +40,7 @@ const Register = () => {
                 {/* <!-- Right Pane --> */}
                 <div className="w-full bg-gray-100 flex items-center justify-center">
                     <div className="max-w-md w-full p-6">
-                        <h1 className="text-3xl font-semibold mb-6 text-black text-center">Sign Up</h1>
+                        <h1 className="text-3xl font-semibold mb-6 text-color text-center">Sign Up</h1>
                         <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">Join to Our Community with all time access and free </h1>
                         <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
                             <div className="w-full lg:w-1/2 mb-2 lg:mb-0">
@@ -43,15 +59,15 @@ const Register = () => {
                         <form onSubmit={handleRegister} className="space-y-4">
                             <div>
                                 <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
-                                <input type="text" id="username" name="username" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
+                                <input type="text" id="username" name="username" required className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                             </div>
                             <div>
                                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                                <input type="text" id="email" name="email" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
+                                <input type="text" id="email" name="email" required className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                             </div>
                             <div>
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                                <input type="password" id="password" name="password" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
+                                <input type="password" id="password" required name="password" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                             </div>
 
                             <div>
