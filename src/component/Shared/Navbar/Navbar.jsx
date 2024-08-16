@@ -1,14 +1,33 @@
 import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { GiWorld } from "react-icons/gi";
 import './Navbar.css'
+import { AuthProvider } from "../../Provider/AuthContext/AuthContext";
+import { toast } from "react-toastify";
+// import { CgProfile } from "react-icons/cg";
+// import { MdOutlineLogout } from "react-icons/md";
+import { IoIosArrowDown } from "react-icons/io";
+
+
+
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { user, userLogout } = useContext(AuthProvider)
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
     };
+
+    const handleLogout = () => {
+        userLogout()
+            .then(() => {
+                toast('successfully Logout')
+            })
+            .then(() => {
+
+            })
+    }
 
     const links = [
         { to: '/', label: 'Home' },
@@ -69,7 +88,22 @@ const Navbar = () => {
             </div>
 
             <div className="navbar-end">
-                <Link to='/login'> <button className="btn btn-outline btn-sm rounded-full hover:bg-[#094067] px-4 transition-colors duration-300 ">Login</button></Link>
+                {
+                    user ?
+                        <div className="dropdown dropdown-end ">
+                            <div tabIndex={0} role="button" className=" m-1 flex justify-center  items-center "><span className="font-semibold text-[#094067]">Shihab Uddin</span><IoIosArrowDown className="ml-2 text-xl mt-2" /></div>
+
+                            <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow text-[#094067]">
+                                <Link to='/dashboard'>
+                                    <li className="font-bold px-3 py-2 text-lg cursor-pointer hover:bg-[#094067] hover:text-white rounded transition-colors duration-300">Dashboard</li>
+                                </Link>
+
+                                <li onClick={handleLogout} className="font-bold px-3 py-2 text-lg cursor-pointer hover:bg-[#094067] hover:text-white rounded transition-colors duration-300">Logout</li>
+                            </ul>
+                        </div>
+                        :
+                        <Link to='/dashboard'> <button className="btn btn-outline border-[#094067] btn-sm rounded-full hover:bg-[#094067] px-4 transition-colors duration-300 ">Dashboard</button></Link>
+                }
             </div>
         </div>
     );

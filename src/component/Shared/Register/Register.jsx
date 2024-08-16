@@ -1,13 +1,15 @@
 import { useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthProvider } from "../../Provider/AuthContext/AuthContext";
 import { toast } from "react-toastify";
 
 
 const Register = () => {
-    const { createRegister } = useContext(AuthProvider)
+    const { createRegister, signInWithGoogle } = useContext(AuthProvider)
+    const navigate = useNavigate()
+    const location = useLocation()
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -22,6 +24,7 @@ const Register = () => {
                 // Signed up 
                 const user = userCredential.user;
                 toast('Successfully Register')
+                navigate(`${location.state ? location?.state : '/'}`)
                 console.log(user);
             })
             .catch((error) => {
@@ -31,6 +34,19 @@ const Register = () => {
 
         console.log(userName, email, password);
         form.reset()
+    }
+
+    const handleSignInWithGoogle = () => {
+        signInWithGoogle()
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+                navigate(`${location.state ? location?.state : '/'}`)
+            })
+            .catch((error) => {
+                const errorMessage = error.message;
+                console.log(errorMessage);
+            })
     }
 
     return (
@@ -44,7 +60,7 @@ const Register = () => {
                         <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">Join to Our Community with all time access and free </h1>
                         <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
                             <div className="w-full lg:w-1/2 mb-2 lg:mb-0">
-                                <button type="button" className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300">
+                                <button onClick={handleSignInWithGoogle} type="button" className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300">
                                     <FaGoogle /> Sign Up with Google </button>
                             </div>
                             <div className="w-full lg:w-1/2 ml-0 lg:ml-2">
