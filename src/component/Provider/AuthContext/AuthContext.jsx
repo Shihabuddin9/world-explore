@@ -27,17 +27,7 @@ const AuthContext = ({ children }) => {
         setLoading(true)
         return signInWithPopup(auth, provider)
     }
-    // const handleSignInWithGoogle = () => {
-    //     signInWithGoogle()
-    //         .then((result) => {
-    //             const user = result.user;
-    //             console.log(user);
-    //         })
-    //         .catch((error) => {
-    //             const errorMessage = error.message;
-    //             console.log(errorMessage);
-    //         })
-    // }
+
 
     // for user manage
     useEffect(() => {
@@ -60,7 +50,6 @@ const AuthContext = ({ children }) => {
         createRegister,
         createLogin,
         user,
-        // handleSignInWithGoogle,
         signInWithGoogle,
         userLogout,
         loading,

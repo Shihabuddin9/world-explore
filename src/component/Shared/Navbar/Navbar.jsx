@@ -4,11 +4,7 @@ import { GiWorld } from "react-icons/gi";
 import './Navbar.css'
 import { AuthProvider } from "../../Provider/AuthContext/AuthContext";
 import { toast } from "react-toastify";
-// import { CgProfile } from "react-icons/cg";
-// import { MdOutlineLogout } from "react-icons/md";
 import { IoIosArrowDown } from "react-icons/io";
-
-
 
 
 const Navbar = () => {
@@ -91,7 +87,17 @@ const Navbar = () => {
                 {
                     user ?
                         <div className="dropdown dropdown-end ">
-                            <div tabIndex={0} role="button" className=" m-1 flex justify-center  items-center "><span className="font-semibold text-[#094067]">Shihab Uddin</span><IoIosArrowDown className="ml-2 text-xl mt-2" /></div>
+                            <div tabIndex={0} role="button" className=" m-1 flex justify-center  items-center "><span className="font-semibold text-[#094067]">
+                                {
+                                    user?.displayName ? user?.displayName
+                                        :
+                                        <div className="avatar placeholder">
+                                            <div className="bg-[#094067] text-neutral-content w-8 rounded-full">
+                                                <span className="">{user?.email.substring(0, 1)}</span>
+                                            </div>
+                                        </div>
+                                }
+                            </span><IoIosArrowDown className="ml-1 text-xl mt-1" /></div>
 
                             <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow text-[#094067]">
                                 <Link to='/dashboard'>

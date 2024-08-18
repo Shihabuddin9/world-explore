@@ -58,7 +58,7 @@ const Login = () => {
                 <div className="w-full bg-gray-100 flex items-center justify-center">
                     <div className="max-w-md w-full p-6">
                         <h1 className="text-3xl font-semibold mb-6 text-color text-center">Sign in</h1>
-                        <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">Join to Our Community with all time access and free </h1>
+                        <h1 className="text-sm font-semibold mb-6 text-gray-500 text-center">Join to Our Community</h1>
                         <div className="mt-4 flex flex-col lg:flex-row items-center justify-between">
                             <div className="w-full lg:w-1/2 mb-2 lg:mb-0">
                                 <button onClick={handleSignInWithGoogle} type="button" className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300 hover:border-[#094067]">
@@ -66,7 +66,7 @@ const Login = () => {
                             </div>
                             <div className="w-full lg:w-1/2 ml-0 lg:ml-2">
                                 <button type="button" className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300 hover:border-[#094067]">
-                                    <FaFacebook />  Sign Up with Github </button>
+                                    <FaFacebook />  Sign Up with Facebook </button>
                             </div>
                         </div>
                         <div className="mt-4 text-sm text-gray-600 text-center">
