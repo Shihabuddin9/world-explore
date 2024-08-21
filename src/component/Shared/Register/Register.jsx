@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -8,14 +8,16 @@ import { toast } from "react-toastify";
 
 const Register = () => {
     const { createRegister, signInWithGoogle } = useContext(AuthProvider)
+    const [error, setError] = useState('')
     const navigate = useNavigate()
     const location = useLocation()
 
     const handleRegister = (e) => {
+        setError('')
         e.preventDefault()
         const form = e.target
 
-        const userName = form.username.value
+        // const userName = form.username.value
         const email = form.email.value
         const password = form.password.value
 
@@ -23,17 +25,17 @@ const Register = () => {
             .then((userCredential) => {
                 // Signed up 
                 const user = userCredential.user;
-                toast('Successfully Register')
-                navigate(`${location.state ? location?.state : '/'}`)
-                console.log(user);
+                if (user) {
+                    toast('Successfully Register')
+                    navigate(`${location.state ? location?.state : '/'}`)
+                    form.reset()
+                }
             })
             .catch((error) => {
-                const errorMessage = error.message;
-                console.log(errorMessage);
+                setError(error.message)
             });
 
-        console.log(userName, email, password);
-        form.reset()
+
     }
 
     const handleSignInWithGoogle = () => {
@@ -64,7 +66,7 @@ const Register = () => {
                                     <FaGoogle /> Sign Up with Google </button>
                             </div>
                             <div className="w-full lg:w-1/2 ml-0 lg:ml-2">
-                                <button type="button" className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300">
+                                <button disabled type="button" className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md ">
                                     <FaFacebook />  Sign Up with Facebook </button>
                             </div>
                         </div>
@@ -85,7 +87,7 @@ const Register = () => {
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
                                 <input type="password" id="password" required name="password" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                             </div>
-
+                            {error && <p className='text-red-500'>{error}</p>}
                             <div>
                                 <button type="submit" className="w-full bg-[#094067] text-white p-2 rounded-md hover:bg-[#094067dd] focus:outline-none focus:bg-[#094067] focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign Up</button>
                             </div>

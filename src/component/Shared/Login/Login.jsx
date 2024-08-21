@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { FaFacebook } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -8,10 +8,12 @@ import { toast } from "react-toastify";
 
 const Login = () => {
     const { createLogin, signInWithGoogle } = useContext(AuthProvider)
+    const [error, setError] = useState('')
     const navigate = useNavigate()
     const location = useLocation()
 
     const handleRegister = (e) => {
+        setError('')
         e.preventDefault()
         const form = e.target
 
@@ -20,21 +22,20 @@ const Login = () => {
         const password = form.password.value
 
         createLogin(email, password)
+
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
                 console.log(user);
                 toast('successfully Login')
                 navigate(`${location.state ? location?.state : '/'}`)
+                form.reset()
                 // ...
             })
             .catch((error) => {
-                const errorMessage = error.message;
-                console.log(errorMessage);
+                setError(error.message)
+                console.log(error);
             });
-
-        console.log(email, password);
-        form.reset()
     }
 
     const handleSignInWithGoogle = () => {
@@ -65,7 +66,7 @@ const Login = () => {
                                     <FaGoogle /> Sign Up with Google </button>
                             </div>
                             <div className="w-full lg:w-1/2 ml-0 lg:ml-2">
-                                <button type="button" className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md hover:bg-gray-50 border border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors duration-300 hover:border-[#094067]">
+                                <button disabled type="button" className="w-full flex justify-center items-center gap-2 bg-white text-sm text-gray-600 p-2 rounded-md ">
                                     <FaFacebook />  Sign Up with Facebook </button>
                             </div>
                         </div>
@@ -82,7 +83,7 @@ const Login = () => {
                                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
                                 <input type="password" id="password" name="password" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                             </div>
-
+                            {error && <p className='text-red-500'>{error}</p>}
                             <div>
                                 <button type="submit" className="w-full bg-[#094067] text-white p-2 rounded-md hover:bg-[#094067dd] focus:outline-none focus:bg-[#094067] focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign In</button>
                             </div>
